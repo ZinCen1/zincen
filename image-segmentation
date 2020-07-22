@@ -1,1 +1,41 @@
 
+％   画带密度的散点图
+％ x横坐标，y纵坐标
+函数 plot_density（x，y）
+如果 nargin == 1    ％只有1个输入变量
+    如果 size（x，1）
+        x = x ' ;    ％转置为列向量
+    结束
+    y = x;
+    x =（1：length（y））' ;
+否则， 如果 nargin == 2    ％有2个输入变量
+        如果 size（x，1）
+            x = x ' ;   ％转置为列向量
+        结束
+        如果 size（y，1）
+            y = y ' ;       ％转置为列向量
+        结束
+    结束
+结束
+N =长度（x）;   ％数据长度
+c = zeros（N，1）;
+max_x = max（x）; min_x = min（x）;   ％搜索边界点
+max_y = max（y）; min_y = min（y）;    ％搜索边界点
+NLevel = 101 ;   ％划分等级100份
+color_Map = zeros（NLevel + 1）;
+step_x =（max_x-min_x）/（NLevel- 1）;  ％ x轴步长
+step_y =（max_y-min_y）/（NLevel- 1）;    ％ y轴步长
+对于 j = 1：N
+    color_Map_x = INT32（（X（J）-min_x）/ step_x）+ 1 ;
+    color_Map_y = INT32（（Y（j）的-min_y）/ step_y）+ 1 ;
+    color_Map（color_Map_x，color_Map_y）= color_Map（color_Map_x，color_Map_y）+ 1 ;
+结束
+对于 j = 1：N
+    color_Map_x = INT32（（X（J）-min_x）/ step_x）+ 1 ;
+    color_Map_y = INT32（（Y（j）的-min_y）/ step_y）+ 1 ;
+    c（j）= color_Map（color_Map_x，color_Map_y）;
+结束
+散点图（x，y，10，c，' filled '）
+％ image（linspace（min_x，max_x，NLevel + 1），linspace（min_y，max_y，NLevel + 1），color_Map）;
+colormap（jet）    ％查阅 colormap函数更改颜色变化趋势
+colorbar    ％显示颜色条
